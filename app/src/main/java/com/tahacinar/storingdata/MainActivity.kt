@@ -11,8 +11,8 @@ import java.util.prefs.Preferences
 class MainActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityMainBinding
-    private lateinit var sharedPref : SharedPreferences
-    var ageFromPref : Int? = null
+    private lateinit var SharedPreferences : SharedPreferences
+    var ageFromPreferences : Int? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -20,34 +20,35 @@ class MainActivity : AppCompatActivity() {
         val view = binding.root
         setContentView(view)
 
-        sharedPref = this.getSharedPreferences("com.tahacinar.storingdata", Context.MODE_PRIVATE)
+        SharedPreferences = this.getSharedPreferences("com.tahacinar.storingdata", Context.MODE_PRIVATE)
 
-        val ageFromPref = sharedPref.getInt("age",0)
+        val ageFromPreferences = SharedPreferences.getInt("age",-1)
 
-        if(ageFromPref == 1) {
-            binding.textView.text = "Your Age:"
+        if(ageFromPreferences == -1) {
+            binding.textView.text = "Your Age: "
         } else {
-            binding.textView.text = "Your Age: ${ageFromPref}"
+            binding.textView.text = "Your Age: ${ageFromPreferences}"
         }
 
     }
 
     fun save (view:View){
+
         val myAge = binding.editText.text.toString().toIntOrNull()
 
         if (myAge != null) {
             binding.textView.text = "Your age: ${myAge}"
-            sharedPref.edit().putInt("age",myAge).apply()
+            SharedPreferences.edit().putInt("age",myAge).apply()
         }
 
 
     }
     fun delete (view:View){
 
-        ageFromPref = sharedPref.getInt("age",-1)
+        ageFromPreferences = SharedPreferences.getInt("age",-1)
 
-        if (ageFromPref != -1) {
-            sharedPref.edit().remove("age").apply()
+        if (ageFromPreferences != -1) {
+            SharedPreferences.edit().remove("age").apply()
             binding.textView.text = " Your age:"
         }
 
