@@ -21,9 +21,19 @@ class MainActivity : AppCompatActivity() {
 
         sharedPref = this.getSharedPreferences("com.tahacinar.storingdata", Context.MODE_PRIVATE)
 
+        val userAgePref = sharedPref.getInt("age",-1)
+
+        if(userAgePref == 1) {
+            binding.textView.text = "Your Age:"
+        } else {
+            binding.textView.text = "Your Age: ${userAgePref}"
+        }
+
     }
 
     fun save (view:View){
+
+
 
     }
     fun delete (view:View){
