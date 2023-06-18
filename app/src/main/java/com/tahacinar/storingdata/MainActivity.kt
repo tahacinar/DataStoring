@@ -32,7 +32,12 @@ class MainActivity : AppCompatActivity() {
     }
 
     fun save (view:View){
+        val myAge = binding.editText.text.toString().toIntOrNull()
 
+        if (myAge != null) {
+            binding.textView.text = "Your age: ${myAge}"
+            sharedPref.edit().putInt("age",myAge).apply()
+        }
 
 
     }
